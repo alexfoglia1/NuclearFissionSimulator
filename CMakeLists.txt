@@ -3,5 +3,6 @@ project(FissionSim)
 add_executable(
 fission_simulator
 
+yields.h
 fission_simulator.cpp
 )
