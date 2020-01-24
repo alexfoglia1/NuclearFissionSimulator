@@ -24,6 +24,15 @@ To build and run this simulator you need:
 
 Developed on a Ubuntu Machine. Should work on Windows/Mac OS but never tested.
 
+## Credits
+
+Fissile nuclides yield distributions are available [here](https://wwwndc.jaea.go.jp/cgi-bin/FPYfig).
+
+Libraries:
+
+JENDL-4.0 Fission Yield Sublibrary [J40-2010]
+
+JENDL FP Fission Yields Data File 2011 [FPY-2011]
 
 ## Some results
 
