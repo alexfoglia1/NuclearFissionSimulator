@@ -36,4 +36,20 @@ JENDL FP Fission Yields Data File 2011 [FPY-2011]
 
 ## Some results
 
-![Report](Experiment_Report.png  "Experiment Report")
+### N = 1000
+![N_1000](Experiment_ReportN1000.png  "Experiment Report with N simulations 1000")
+
+### N = 5000
+![N_5000](Experiment_ReportN5000.png  "Experiment Report with N simulations 5000")
+
+### N = 10000
+![N_10000](Experiment_ReportN10000.png  "Experiment Report with N simulations 10000")
+
+### N = 50000
+![N_50000](Experiment_ReportN50000.png  "Experiment Report with N simulations 50000")
+
+### N = 100000
+![N_100000](Experiment_ReportN100000.png  "Experiment Report with N simulations 100000")
+
+### N = 1000000
+![N_1000000](Experiment_ReportN1000000.png  "Experiment Report with N simulations 1000000")

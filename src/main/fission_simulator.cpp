@@ -7,7 +7,8 @@
 
 #include "python_generator.h"
 
-const int DEFAULT_NUMBER_OF_SIMULATIONS = 100000;
+const uint32_t DEFAULT_NUMBER_OF_SIMULATIONS = 100000;
+const uint32_t MAXIMUM_NUMBER_OF_SIMULATIONS = std::numeric_limits<uint32_t>::max()/2;
 
 double mean(std::vector<double> v)
 {
@@ -34,30 +35,37 @@ std::vector<double> convertIntToDoubleVector(std::vector<int> intVector)
 
 int main(int argc, char** argv)
 {
-	int nSim = DEFAULT_NUMBER_OF_SIMULATIONS;
+    uint32_t nSim = DEFAULT_NUMBER_OF_SIMULATIONS;
 
+    bool parsingErrors = false;
 	if (argc == 1)
 	{
 		std::cout << "Usage: " << argv[0] << " [number of simulations]" << std::endl;
-		std::cout << "Using default value: " << nSim << std::endl << std::endl;
+        parsingErrors = true;
 	}
 	else
 	{
-		try
-		{
-			nSim = atoi(argv[1]);
-			if (nSim <= 0)
-			{
-				throw std::invalid_argument("Unvalid number of simulations");
-			}
-		}
-		catch (std::exception e)
-		{
-			nSim = DEFAULT_NUMBER_OF_SIMULATIONS;
-			std::cout << "Unvalid number of simulations: " << argv[1] << std::endl;
-			std::cout << "Using default value: " << nSim << std::endl << std::endl;
+        int parsed_nSim = atoi(argv[1]);
+        if (parsed_nSim <= 0)
+        {
+            std::cout << "Unvalid number of simulations " << argv[1] << ": shall be > 1" << std::endl;
+            parsingErrors = true;
+        }
+        else if(parsed_nSim > MAXIMUM_NUMBER_OF_SIMULATIONS)
+        {
+            std::cout << "Unvalid number of simulations " << argv[1] << ": shall be <= " << MAXIMUM_NUMBER_OF_SIMULATIONS << std::endl;
+            parsingErrors = true;
+        }
+        else
+        {
+            nSim = static_cast<uint32_t>(parsed_nSim);
 		}
 	}
+
+    if(parsingErrors)
+    {
+        std::cout << "Using default value: " << nSim << std::endl << std::endl;
+    }
 
     uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 
@@ -129,7 +137,8 @@ int main(int argc, char** argv)
 		}
 
         double percentage = (100.0 * i)/nSim;
-        printf("Progress: %d %%\r", static_cast<int>(percentage));
+
+        printf("Progress: %.2f %%\r", percentage);
         fflush(stdout);
     }
 
