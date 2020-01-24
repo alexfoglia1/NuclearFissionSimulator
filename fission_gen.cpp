@@ -1,5 +1,4 @@
 #include "fission_gen.h"
-#include <iostream>
 
 std::vector<int> generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers)
 {

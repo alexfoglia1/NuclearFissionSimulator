@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <sstream>
-#include <iostream>
 #include "python_generator.h"
 
 const char* code_template =
