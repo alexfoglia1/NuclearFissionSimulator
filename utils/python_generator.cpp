@@ -35,6 +35,9 @@ const char* code_template =
 "a[1][1].plot(energies)\n"
 "a[1][1].set_ylabel('Cumulative average energy produced (MeV)')\n"
 "a[1][1].set_xlabel('Simulation number')\n"
+"for i in range(0,2):\n"
+"    for j in range(0,2):\n"
+"        a[i][j].grid()\n"
 "plt.show()";
 
 void PythonGenerator::writePythonScript(std::vector<double> trueDistA, std::vector<double> trueDistZ, std::vector<double> relCountA,

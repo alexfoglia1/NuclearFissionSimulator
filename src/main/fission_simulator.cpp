@@ -14,7 +14,7 @@ double mean(std::vector<double> v)
 {
 	double sum = 0;
 	uint32_t vlen = static_cast<uint32_t>(v.size());
-	
+
 	for (uint32_t i = 0; i < vlen; i++)
 	{
 		sum += v.at(static_cast<int>(i));
@@ -67,6 +67,8 @@ int main(int argc, char** argv)
         std::cout << "Using default value: " << nSim << std::endl << std::endl;
     }
 
+    FissionGenerator fGen;
+
     uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 
     std::seed_seq ss{uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed>>32)};
@@ -102,7 +104,7 @@ int main(int argc, char** argv)
     std::cout << "Start " << nSim << " atomic fission simulations . . ." << std::endl;
     for(int i = 0; i < nSim;)
     {
-        std::vector<int> fissionProducts = generateFissionValues(distMass, distAtom, massNumbers, atomNumbers);
+        std::vector<int> fissionProducts = fGen.generateFissionValues(distMass, distAtom, massNumbers, atomNumbers);
 
         int a1 = fissionProducts.at(0);
         countsPerA[a1 - MIN_MASS_NUMBER] += 1;

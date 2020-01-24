@@ -1,6 +1,6 @@
 #include "fission_gen.h"
 
-std::vector<int> generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers)
+std::vector<int> FissionGenerator::generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers)
 {
     std::vector<double> massNormalized, atomicNormalized;
     std::vector<double> unif;
