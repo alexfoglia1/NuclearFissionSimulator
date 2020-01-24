@@ -7,6 +7,8 @@
 
 #include "python_generator.h"
 
+const int DEFAULT_NUMBER_OF_SIMULATIONS = 100000;
+
 double mean(std::vector<double> v)
 {
 	double sum = 0;
@@ -30,9 +32,32 @@ std::vector<double> convertIntToDoubleVector(std::vector<int> intVector)
     return doubleVector;
 }
 
-int main()
+int main(int argc, char** argv)
 {
-    const int nSim = 100000;
+	int nSim = DEFAULT_NUMBER_OF_SIMULATIONS;
+
+	if (argc == 1)
+	{
+		std::cout << "Usage: " << argv[0] << " [number of simulations]" << std::endl;
+		std::cout << "Using default value: " << nSim << std::endl << std::endl;
+	}
+	else
+	{
+		try
+		{
+			nSim = atoi(argv[1]);
+			if (nSim <= 0)
+			{
+				throw std::invalid_argument("Unvalid number of simulations");
+			}
+		}
+		catch (std::exception e)
+		{
+			nSim = DEFAULT_NUMBER_OF_SIMULATIONS;
+			std::cout << "Unvalid number of simulations: " << argv[1] << std::endl;
+			std::cout << "Using default value: " << nSim << std::endl << std::endl;
+		}
+	}
 
     uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 
@@ -63,6 +88,9 @@ int main()
 
     std::vector<double> energies;
     std::vector<double> actualEnergies;
+	auto nSim_100 = nSim / 100;
+	bool canAverage = nSim_100 > 0;
+
     std::cout << "Start " << nSim << " atomic fission simulations . . ." << std::endl;
     for(int i = 0; i < nSim;)
     {
@@ -88,10 +116,17 @@ int main()
 
         i++;
 
-        if(i%(nSim/100) == 0)
-        {
-            energies.push_back(mean(actualEnergies));
-        }
+		if (canAverage)
+		{
+			if (i % nSim_100 == 0)
+			{
+				energies.push_back(mean(actualEnergies));
+			}
+		}
+		else
+		{
+			energies.push_back(actualEnergy);
+		}
 
         double percentage = (100.0 * i)/nSim;
         printf("Progress: %d %%\r", static_cast<int>(percentage));
