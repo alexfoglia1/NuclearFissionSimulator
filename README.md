@@ -22,7 +22,7 @@ To build and run this simulator you need:
 
 ## Notes
 
-Developed on a Ubuntu Machine. Should work on Windows/Mac OS but never tested.
+Developed on a Ubuntu Machine. In order to build in Windows, Visual Studio 2015 is required.
 
 ## Credits
 
