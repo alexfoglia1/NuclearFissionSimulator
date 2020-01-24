@@ -1,4 +1,4 @@
-#include "utils/random_gen.h"
+#include "random_gen.h"
 
 const auto URANIUM_Z = 92;
 const auto URANIUM_A = 235;

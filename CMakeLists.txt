@@ -1,20 +1,22 @@
 cmake_minimum_required(VERSION 2.6)
-project(FissionSim)
-
-add_subdirectory(utils)
+project(fission_simulator)
 
 add_executable(
 fission_simulator
 
-yields.h
-periodictable.h
+${CMAKE_SOURCE_DIR}/src/models/yields.h
+${CMAKE_SOURCE_DIR}/src/models/periodictable.h
+${CMAKE_SOURCE_DIR}/src/models/fission_gen.h
+${CMAKE_SOURCE_DIR}/src/models/fission_gen.cpp
 
 ${CMAKE_SOURCE_DIR}/utils/python_generator.h
 ${CMAKE_SOURCE_DIR}/utils/python_generator.cpp
 ${CMAKE_SOURCE_DIR}/utils/random_gen.h
 ${CMAKE_SOURCE_DIR}/utils/random_gen.cpp
 
-fission_gen.h
-fission_gen.cpp
-fission_simulator.cpp
+${CMAKE_SOURCE_DIR}/src/main/fission_simulator.cpp
 )
+
+target_include_directories(fission_simulator PRIVATE ${CMAKE_SOURCE_DIR}/src/models)
+target_include_directories(fission_simulator PRIVATE ${CMAKE_SOURCE_DIR}/src/main)
+target_include_directories(fission_simulator PRIVATE ${CMAKE_SOURCE_DIR}/utils)

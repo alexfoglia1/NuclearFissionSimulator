@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <chrono>
 
-#include "utils/python_generator.h"
+#include "python_generator.h"
 
 std::vector<double> convertIntToDoubleVector(std::vector<int> intVector)
 {
