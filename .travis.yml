@@ -1,11 +1,5 @@
 language: c++
 
-env:
-  - DISPLAY=:99.0
-
-before_install:
-      sh -e /etc/init.d/xvfb start;
-
 script:
   - mkdir build
   - cd build
