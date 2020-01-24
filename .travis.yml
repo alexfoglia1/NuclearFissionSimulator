@@ -1,1 +1,14 @@
+language: c++
 
+env:
+  - DISPLAY=:99.0
+
+before_install:
+      sh -e /etc/init.d/xvfb start;
+      mkdir build;
+      cd build;
+      cmake ..
+
+script:
+  - cd build
+  - make -j4
