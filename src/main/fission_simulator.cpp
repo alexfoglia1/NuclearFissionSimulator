@@ -3,10 +3,22 @@
 #include "fission_gen.h"
 
 #include <iostream>
-#include <unistd.h>
 #include <chrono>
 
 #include "python_generator.h"
+
+double mean(std::vector<double> v)
+{
+	double sum = 0;
+	uint32_t vlen = static_cast<uint32_t>(v.size());
+	
+	for (uint32_t i = 0; i < vlen; i++)
+	{
+		sum += v.at(static_cast<int>(i));
+	}
+
+	return sum / vlen;
+}
 
 std::vector<double> convertIntToDoubleVector(std::vector<int> intVector)
 {
@@ -78,7 +90,7 @@ int main()
 
         if(i%(nSim/100) == 0)
         {
-            energies.push_back(std::accumulate(std::begin(actualEnergies), std::end(actualEnergies), 0.0)/static_cast<double>(nSim/100));
+            energies.push_back(mean(actualEnergies));
         }
 
         double percentage = (100.0 * i)/nSim;
