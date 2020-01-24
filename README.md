@@ -13,7 +13,7 @@ To build and run this simulator you need:
 
 ## Build Instructions
 
-    clone this git repository
+    git clone https://github.com/alexfoglia1/NuclearFissionSimulator.git
     cd NuclearFissionSimulator
     mkdir build
     cd build
