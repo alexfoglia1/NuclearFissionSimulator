@@ -5,10 +5,9 @@ env:
 
 before_install:
       sh -e /etc/init.d/xvfb start;
-      mkdir build;
-      cd build;
-      cmake ..
 
 script:
+  - mkdir build
   - cd build
+  - cmake ..
   - make -j4
