@@ -34,7 +34,7 @@ JENDL-4.0 Fission Yield Sublibrary [J40-2010]
 
 JENDL FP Fission Yields Data File 2011 [FPY-2011]
 
-## Some results
+## Reports
 
 ### N = 1000
 ![N_1000](Experiment_ReportN1000.png  "Experiment Report with N simulations 1000")
