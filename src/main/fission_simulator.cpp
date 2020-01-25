@@ -10,6 +10,8 @@
 const uint32_t DEFAULT_NUMBER_OF_SIMULATIONS = 100000;
 const uint32_t MAXIMUM_NUMBER_OF_SIMULATIONS = std::numeric_limits<uint32_t>::max()/2;
 
+const bool DEFAULT_SAVEFIG_OPTION = false;
+
 double mean(std::vector<double> v)
 {
 	double sum = 0;
@@ -36,35 +38,56 @@ std::vector<double> convertIntToDoubleVector(std::vector<int> intVector)
 int main(int argc, char** argv)
 {
     uint32_t nSim = DEFAULT_NUMBER_OF_SIMULATIONS;
+    bool saveFig = DEFAULT_SAVEFIG_OPTION;
 
-    bool parsingErrors = false;
-	if (argc == 1)
+    bool parsingErrorsN = false;
+    bool parsingErrorsSF = false;
+    if (argc != 3)
 	{
-		std::cout << "Usage: " << argv[0] << " [number of simulations]" << std::endl;
-        parsingErrors = true;
+        std::cout << "Usage: " << std::endl << argv[0] << "\tn [number of simulations]\t"
+                                                       << "s/p [save/plot report]"      << std::endl << std::endl;
+        parsingErrorsN = true;
+        parsingErrorsSF = true;
 	}
 	else
 	{
         int parsed_nSim = atoi(argv[1]);
+        std::string parsed_saveFig = argv[2];
+
         if (parsed_nSim <= 0)
         {
             std::cout << "Unvalid number of simulations " << argv[1] << ": shall be > 1" << std::endl;
-            parsingErrors = true;
+            parsingErrorsN = true;
         }
         else if(parsed_nSim > MAXIMUM_NUMBER_OF_SIMULATIONS)
         {
             std::cout << "Unvalid number of simulations " << argv[1] << ": shall be <= " << MAXIMUM_NUMBER_OF_SIMULATIONS << std::endl;
-            parsingErrors = true;
+            parsingErrorsN = true;
         }
         else
         {
             nSim = static_cast<uint32_t>(parsed_nSim);
+        }
+
+        if(parsed_saveFig.compare("s") != 0 && parsed_saveFig.compare("p") != 0)
+        {
+            std::cout << "Unvalid save or plot report option " << argv[2] << ": shall be 's' or 'p'" << std::endl;
+            parsingErrorsSF = true;
+        }
+        else
+        {
+            saveFig = parsed_saveFig.compare("s") == 0 ? true : false;
 		}
 	}
 
-    if(parsingErrors)
+    if(parsingErrorsN)
     {
-        std::cout << "Using default value: " << nSim << std::endl << std::endl;
+        std::cout << "Using default number of simulations value: " << nSim << std::endl << std::endl;
+    }
+
+    if(parsingErrorsSF)
+    {
+        std::cout << "Using default save figure option value: p [plot]" << std::endl << std::endl;
     }
 
     FissionGenerator fGen;
@@ -161,13 +184,20 @@ int main(int argc, char** argv)
         relCountsPerZ.push_back(countsPerZ[i]/static_cast<double>(nSim));
     }
 
-    std::cout << std::endl << std::endl << "Writing script . . ." << std::endl;
+    std::cout << std::endl << "Writing script . . ." << std::endl;
     PythonGenerator pyGen("plot.py");
     pyGen.writePythonScript(distMass, distAtom, relCountsPerA,
                             relCountsPerZ, convertIntToDoubleVector(atomNumbers), convertIntToDoubleVector(massNumbers),
-                            freeNeutrons, energies, nSim);
-    std::cout << std::endl << "Done" << std::endl;
-
+                            freeNeutrons, energies, nSim, saveFig);
+    std::cout<< "Done" << std::endl << std::endl;
+    if(saveFig)
+    {
+        std::cout << "Saving report . . ." << std::endl;
+    }
+    else
+    {
+        std::cout << "Plotting report . . ." << std::endl;
+    }
     system("python plot.py");
 
     return 0;

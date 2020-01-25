@@ -38,11 +38,15 @@ const char* code_template =
 "for i in range(0,2):\n"
 "    for j in range(0,2):\n"
 "        a[i][j].grid()\n"
-"plt.savefig('Experiment_ReportN%d.png')";
+"print('Done')\n"
+"if %s:\n"
+"    plt.savefig('Experiment_ReportN%d.png')\n"
+"else:\n"
+"    plt.show()";
 
 void PythonGenerator::writePythonScript(std::vector<double> trueDistA, std::vector<double> trueDistZ, std::vector<double> relCountA,
                                         std::vector<double> relCountZ, std::vector<double> zNumbers, std::vector<double> aNumbers,
-                                        std::vector<double> freeNeutrons, std::vector<double> energies, int nSim)
+                                        std::vector<double> freeNeutrons, std::vector<double> energies, int nSim, bool saveFig)
 {
     std::string trueDistA_vec;
     std::string trueDistZ_vec;
@@ -64,7 +68,18 @@ void PythonGenerator::writePythonScript(std::vector<double> trueDistA, std::vect
 
     FILE* out = fopen(mFilename, "w");
     fprintf(out, code_template,
-            trueDistA_vec.c_str(), trueDistZ_vec.c_str(), relCountA_vec.c_str(), relCountZ_vec.c_str(), aNumbers_vec.c_str(), zNumbers_vec.c_str(), free_vec.c_str(), energies_vec.c_str(), nSim, nSim/100, nSim);
+            trueDistA_vec.c_str(),
+            trueDistZ_vec.c_str(),
+            relCountA_vec.c_str(),
+            relCountZ_vec.c_str(),
+            aNumbers_vec.c_str(),
+            zNumbers_vec.c_str(),
+            free_vec.c_str(),
+            energies_vec.c_str(),
+            nSim,
+            nSim/100,
+            saveFig ? "True" : "False",
+            nSim);
     fclose(out);
 }
 
@@ -73,14 +88,16 @@ void PythonGenerator::stdVectorToString(std::vector<double> toConvert, std::stri
     int toConvertSize = toConvert.size();
     for(int i = 0; i < toConvertSize - 1; i++)
     {
-        std::ostringstream strs;
-        strs << toConvert.at(i);
-        std::string num2str = strs.str();
+        std::string num2str = doubleToString(toConvert.at(i));
         result += num2str + ",";
     }
-
-    std::ostringstream strs;
-    strs << toConvert.at(toConvertSize - 1);
-    std::string num2str = strs.str();
+    std::string num2str = doubleToString(toConvert.at(toConvertSize - 1));
     result += num2str;
+}
+
+std::string PythonGenerator::doubleToString(double toConvert)
+{
+    std::ostringstream strs;
+    strs << toConvert;
+    return strs.str();
 }
