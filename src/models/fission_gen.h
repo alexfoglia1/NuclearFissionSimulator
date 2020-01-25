@@ -14,7 +14,19 @@ class FissionGenerator
 public:
     FissionGenerator()
     {
+        std::vector<double> uniformDistribution;
+        std::vector<int>    possibleFreeNeutron;
 
+        uniformDistribution.push_back(0.5);
+        uniformDistribution.push_back(0.5);
+
+        possibleFreeNeutron.push_back(2);
+        possibleFreeNeutron.push_back(3);
+
+        mFreeGenerator = new IntegerRandomGenerator(uniformDistribution, possibleFreeNeutron);
     }
+
     std::vector<int> generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers);
+private:
+    IntegerRandomGenerator* mFreeGenerator;
 };

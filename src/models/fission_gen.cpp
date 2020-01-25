@@ -3,8 +3,6 @@
 std::vector<int> FissionGenerator::generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers)
 {
     std::vector<double> massNormalized, atomicNormalized;
-    std::vector<double> unif;
-    std::vector<int> nNumbers;
 
     for(double p_i : aYields)
     {
@@ -16,14 +14,8 @@ std::vector<int> FissionGenerator::generateFissionValues(std::vector<double> aYi
         atomicNormalized.push_back(q_i/2);
     }
 
-    unif.push_back(0.5);
-    unif.push_back(0.5);
-    nNumbers.push_back(2);
-    nNumbers.push_back(3);
-
     IntegerRandomGenerator massGenerator(massNormalized, aNumbers);
     IntegerRandomGenerator atomGenerator(atomicNormalized, zNumbers);
-    IntegerRandomGenerator freeGenerator(unif, nNumbers);
 
     int a_Product1 = massGenerator.generate();
     int z_Product1 = atomGenerator.generate();
@@ -31,7 +23,7 @@ std::vector<int> FissionGenerator::generateFissionValues(std::vector<double> aYi
     int a_Product2 = massGenerator.generate();
     int z_Product2 = atomGenerator.generate();
 
-    int freeNeutr = freeGenerator.generate();
+    int freeNeutr = mFreeGenerator->generate();
 
     std::vector<int> fissionProducts;
 
