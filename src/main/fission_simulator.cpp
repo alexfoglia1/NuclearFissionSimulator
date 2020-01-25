@@ -19,7 +19,7 @@ double mean(std::vector<double> v)
 
 	for (uint32_t i = 0; i < vlen; i++)
 	{
-		sum += v.at(static_cast<int>(i));
+        sum += v.at(i);
 	}
 
 	return sum / vlen;
