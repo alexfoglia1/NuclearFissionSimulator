@@ -33,12 +33,12 @@ const char* code_template =
 "a[1][0].set_ylabel('Free neutrons')\n"
 "a[1][0].set_xlabel('Simulation number')\n"
 "a[1][1].plot(energies)\n"
-"a[1][1].set_ylabel('Cumulative average energy produced (MeV)')\n"
-"a[1][1].set_xlabel('Simulation number')\n"
+"a[1][1].set_ylabel('Average produced energy (MeV)')\n"
+"a[1][1].set_xlabel('Simulation number/%d')\n"
 "for i in range(0,2):\n"
 "    for j in range(0,2):\n"
 "        a[i][j].grid()\n"
-"plt.show()";
+"plt.savefig('Experiment_ReportN%d.png')";
 
 void PythonGenerator::writePythonScript(std::vector<double> trueDistA, std::vector<double> trueDistZ, std::vector<double> relCountA,
                                         std::vector<double> relCountZ, std::vector<double> zNumbers, std::vector<double> aNumbers,
@@ -63,7 +63,8 @@ void PythonGenerator::writePythonScript(std::vector<double> trueDistA, std::vect
     stdVectorToString(energies, energies_vec);
 
     FILE* out = fopen(mFilename, "w");
-    fprintf(out, code_template, trueDistA_vec.c_str(), trueDistZ_vec.c_str(), relCountA_vec.c_str(), relCountZ_vec.c_str(), aNumbers_vec.c_str(), zNumbers_vec.c_str(), free_vec.c_str(), energies_vec.c_str(), nSim);
+    fprintf(out, code_template,
+            trueDistA_vec.c_str(), trueDistZ_vec.c_str(), relCountA_vec.c_str(), relCountZ_vec.c_str(), aNumbers_vec.c_str(), zNumbers_vec.c_str(), free_vec.c_str(), energies_vec.c_str(), nSim, nSim/100, nSim);
     fclose(out);
 }
 

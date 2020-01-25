@@ -35,6 +35,13 @@ std::vector<int> FissionGenerator::generateFissionValues(std::vector<double> aYi
 
     std::vector<int> fissionProducts;
 
+    double initialMass = URANIUM_N * NEUTRON_MASS_UMA + URANIUM_Z * PROTON_MASS_UMA;
+    double product1_mass = (a_Product1 - z_Product1) * NEUTRON_MASS_UMA + z_Product1 * PROTON_MASS_UMA;
+    double product2_mass = (a_Product2 - z_Product2) * NEUTRON_MASS_UMA + z_Product2 * PROTON_MASS_UMA;
+    double massDefect = initialMass - (product1_mass + product2_mass);
+
+    double e = massDefect * CODATA_2018_UMA_EQUIV_MEV;
+
     fissionProducts.push_back(a_Product1);
     fissionProducts.push_back(z_Product1);
 
@@ -42,11 +49,6 @@ std::vector<int> FissionGenerator::generateFissionValues(std::vector<double> aYi
     fissionProducts.push_back(z_Product2);
 
     fissionProducts.push_back(freeNeutr);
-
-
-    int massDefect = 235 - (a_Product1 + a_Product2);
-    double e = massDefect * 931.49469725613;
-
     fissionProducts.push_back(e);
 
     return fissionProducts;

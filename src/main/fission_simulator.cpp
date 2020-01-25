@@ -98,10 +98,13 @@ int main(int argc, char** argv)
 
     std::vector<double> energies;
     std::vector<double> actualEnergies;
-	auto nSim_100 = nSim / 100;
+    uint32_t nSim_100 = nSim / 100;
 	bool canAverage = nSim_100 > 0;
 
     std::cout << "Start " << nSim << " atomic fission simulations . . ." << std::endl;
+    uint64_t t0 =
+            std::chrono::duration_cast<std::chrono::microseconds>
+            (std::chrono::system_clock::now().time_since_epoch()).count();
     for(int i = 0; i < nSim;)
     {
         std::vector<int> fissionProducts = fGen.generateFissionValues(distMass, distAtom, massNumbers, atomNumbers);
@@ -143,6 +146,11 @@ int main(int argc, char** argv)
         printf("Progress: %.2f %%\r", percentage);
         fflush(stdout);
     }
+    uint64_t tf =
+            std::chrono::duration_cast<std::chrono::microseconds>
+            (std::chrono::system_clock::now().time_since_epoch()).count();
+
+    std::cout << std::endl << "Elapsed: " << ((tf-t0)/pow(10,6)) << " s" << std::endl;
 
     for(int i = 0; i < MASS_YIELD_LENGTH; i++)
     {
