@@ -2,6 +2,8 @@
 
 Simulator of Uranium-235 nuclide fission.
 
+[![Build Status](https://travis-ci.org/alexfoglia1/NuclearFissionSimulator.svg?branch=master)](https://travis-ci.org/alexfoglia1/NuclearFissionSimulator)
+
 ## Requirements
 
 To build and run this simulator you need:
