@@ -122,7 +122,7 @@ int main(int argc, char** argv)
     std::vector<double> energies;
     std::vector<double> actualEnergies;
     uint32_t nSim_100 = nSim / 100;
-	bool canAverage = nSim_100 > 0;
+    bool canAverage = nSim_100 > 0;
 
     std::cout << "Start " << nSim << " atomic fission simulations . . ." << std::endl;
     uint64_t t0 =
