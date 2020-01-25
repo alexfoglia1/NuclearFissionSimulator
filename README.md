@@ -1,6 +1,6 @@
-# NuclearFissionSimulation
+# NuclearFissionSimulator
 
-Simulation of Uranium-235 nuclide fission.
+Simulator of Uranium-235 nuclide fission.
 
 ## Requirements
 
@@ -9,7 +9,7 @@ To build and run this simulator you need:
     python2.7 or higher
     matplotlib
     cmake
-    g++
+    g++ (GNU 7.4.0)
 
 ## Build Instructions
 
@@ -22,7 +22,7 @@ To build and run this simulator you need:
 
 ## Notes
 
-Developed on a Ubuntu Machine. In order to build in Windows, Visual Studio 2015 is required.
+Developed on a Ubuntu 18.04 machine. In order to build in Windows, Visual Studio 2015 is required.
 
 ## Credits
 
