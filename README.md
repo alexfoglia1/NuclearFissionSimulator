@@ -8,7 +8,7 @@ Simulator of Uranium-235 nuclide fission.
 
 To build and run this simulator you need:
     
-    python2.7 or higher
+    python 2.7 or higher
     matplotlib
     cmake
     g++ (GNU 7.4.0)
