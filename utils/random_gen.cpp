@@ -1,11 +1,6 @@
 #include "random_gen.h"
 #include <iostream>
 
-bool is_fractional(double x)
-{
-    return (x - static_cast<int>(x) != 0);
-}
-
 void IntegerRandomGenerator::print()
 {
     int size = mDist.size();
