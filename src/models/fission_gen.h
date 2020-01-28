@@ -26,7 +26,7 @@ public:
         mFreeGenerator = new IntegerRandomGenerator(uniformDistribution, possibleFreeNeutron);
     }
 
-    std::vector<int> generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers);
+    std::vector<double> generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers);
 private:
     IntegerRandomGenerator* mFreeGenerator;
 };

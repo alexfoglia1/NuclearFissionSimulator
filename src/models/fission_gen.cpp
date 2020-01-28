@@ -1,6 +1,6 @@
 #include "fission_gen.h"
 
-std::vector<int> FissionGenerator::generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers)
+std::vector<double> FissionGenerator::generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers)
 {
     std::vector<double> massNormalized, atomicNormalized;
 
@@ -25,7 +25,7 @@ std::vector<int> FissionGenerator::generateFissionValues(std::vector<double> aYi
 
     int freeNeutr = mFreeGenerator->generate();
 
-    std::vector<int> fissionProducts;
+    std::vector<double> fissionProducts;
 
     double initialMass = URANIUM_N * NEUTRON_MASS_UMA + URANIUM_Z * PROTON_MASS_UMA;
     double product1_mass = (a_Product1 - z_Product1) * NEUTRON_MASS_UMA + z_Product1 * PROTON_MASS_UMA;
@@ -34,11 +34,11 @@ std::vector<int> FissionGenerator::generateFissionValues(std::vector<double> aYi
 
     double e = massDefect * CODATA_2018_UMA_EQUIV_MEV;
 
-    fissionProducts.push_back(a_Product1);
-    fissionProducts.push_back(z_Product1);
+    fissionProducts.push_back(static_cast<double>(a_Product1));
+    fissionProducts.push_back(static_cast<double>(z_Product1));
 
-    fissionProducts.push_back(a_Product2);
-    fissionProducts.push_back(z_Product2);
+    fissionProducts.push_back(static_cast<double>(a_Product2));
+    fissionProducts.push_back(static_cast<double>(z_Product2));
 
     fissionProducts.push_back(freeNeutr);
     fissionProducts.push_back(e);
