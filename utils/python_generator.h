@@ -1,6 +1,8 @@
 #include <vector>
 #include <string>
 
+std::string doubleToString(double toConvert);
+
 class PythonGenerator
 {
 public:
@@ -18,5 +20,4 @@ public:
 private:
     const char* mFilename;
     void stdVectorToString(std::vector<double> toConvert, std::string& result);
-    std::string doubleToString(double toConvert);
 };

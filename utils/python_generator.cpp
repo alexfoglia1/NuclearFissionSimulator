@@ -95,7 +95,7 @@ void PythonGenerator::stdVectorToString(std::vector<double> toConvert, std::stri
     result += num2str;
 }
 
-std::string PythonGenerator::doubleToString(double toConvert)
+std::string doubleToString(double toConvert)
 {
     std::ostringstream strs;
     strs << toConvert;

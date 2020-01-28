@@ -2,26 +2,30 @@
 
 std::vector<double> FissionGenerator::generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers)
 {
-    std::vector<double> massNormalized, atomicNormalized;
+	std::vector<double> massNormalized, atomicNormalized;
 
-    for(double p_i : aYields)
-    {
-        massNormalized.push_back(p_i/2);
-    }
+	for (double p_i : aYields)
+	{
+		massNormalized.push_back(p_i / 2);
+	}
 
-    for(double q_i : zYields)
-    {
-        atomicNormalized.push_back(q_i/2);
-    }
+	for (double q_i : zYields)
+	{
+		atomicNormalized.push_back(q_i / 2);
+	}
 
-    IntegerRandomGenerator massGenerator(massNormalized, aNumbers);
-    IntegerRandomGenerator atomGenerator(atomicNormalized, zNumbers);
+	IntegerRandomGenerator massGenerator(massNormalized, aNumbers);
+	IntegerRandomGenerator atomGenerator(atomicNormalized, zNumbers);
 
-    int a_Product1 = massGenerator.generate();
-    int z_Product1 = atomGenerator.generate();
+	int a_Product1 = massGenerator.generate();
+	int z_Product1 = atomGenerator.generate();
 
-    int a_Product2 = massGenerator.generate();
-    int z_Product2 = atomGenerator.generate();
+	int a_Product2 = massGenerator.generate();
+	int z_Product2 = z_Product1;
+	while (z_Product1 == z_Product2)
+	{
+		z_Product2 = atomGenerator.generate();
+	}
 
     int freeNeutr = mFreeGenerator->generate();
 

@@ -144,6 +144,9 @@ int main(int argc, char** argv)
         int z2 = static_cast<int>(fissionProducts.at(3));
         countsPerZ[z2 - MIN_ATOMIC_NUMBER] += 1;
 
+		std::string product1 = doubleToString(a1) + "-" + periodic_table[z1];
+		std::string product2 = doubleToString(a2) + "-" + periodic_table[z2];
+
         double free = fissionProducts.at(4);
         freeNeutrons.push_back(free);
 
