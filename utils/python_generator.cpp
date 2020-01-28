@@ -77,7 +77,7 @@ void PythonGenerator::writePythonScript(std::vector<double> trueDistA, std::vect
             free_vec.c_str(),
             energies_vec.c_str(),
             nSim,
-            nSim/100,
+            nSim/1000,
             saveFig ? "True" : "False",
             nSim);
     fclose(out);

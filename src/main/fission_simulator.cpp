@@ -121,8 +121,8 @@ int main(int argc, char** argv)
 
     std::vector<double> energies;
     std::vector<double> actualEnergies;
-    uint32_t nSim_100 = nSim / 100;
-    bool canAverage = nSim_100 > 0;
+    uint32_t nSim_1000 = nSim / 1000;
+    bool canAverage = nSim_1000 > 0;
 
     std::cout << "Start " << nSim << " atomic fission simulations . . ." << std::endl;
     uint64_t t0 =
@@ -154,7 +154,7 @@ int main(int argc, char** argv)
 
 		if (canAverage)
 		{
-			if (i % nSim_100 == 0)
+			if (i % nSim_1000 == 0)
 			{
 				energies.push_back(mean(actualEnergies));
 			}
