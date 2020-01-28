@@ -144,9 +144,6 @@ int main(int argc, char** argv)
         int z2 = static_cast<int>(fissionProducts.at(3));
         countsPerZ[z2 - MIN_ATOMIC_NUMBER] += 1;
 
-		std::string product1 = doubleToString(a1) + "-" + periodic_table[z1];
-		std::string product2 = doubleToString(a2) + "-" + periodic_table[z2];
-
         double free = fissionProducts.at(4);
         freeNeutrons.push_back(free);
 
@@ -193,6 +190,7 @@ int main(int argc, char** argv)
                             relCountsPerZ, convertIntToDoubleVector(atomNumbers), convertIntToDoubleVector(massNumbers),
                             freeNeutrons, energies, nSim, saveFig);
     std::cout<< "Done" << std::endl << std::endl;
+
     if(saveFig)
     {
         std::cout << "Saving report . . ." << std::endl;

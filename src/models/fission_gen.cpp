@@ -20,23 +20,19 @@ std::vector<double> FissionGenerator::generateFissionValues(std::vector<double> 
 	int a_Product1 = massGenerator.generate();
 	int z_Product1 = atomGenerator.generate();
 
-	int a_Product2 = massGenerator.generate();
-	int z_Product2 = z_Product1;
-	while (z_Product1 == z_Product2)
-	{
-		z_Product2 = atomGenerator.generate();
-	}
+	int freeNeutr = mFreeGenerator->generate();
 
-    int freeNeutr = mFreeGenerator->generate();
+	int a_Product2 = (URANIUM_A + 1) - a_Product1 - freeNeutr;
+	int z_Product2 = URANIUM_Z - z_Product1;
 
     std::vector<double> fissionProducts;
 
-    double initialMass = URANIUM_N * NEUTRON_MASS_UMA + URANIUM_Z * PROTON_MASS_UMA;
+    double initialMass = (URANIUM_N + 1) * NEUTRON_MASS_UMA + URANIUM_Z * PROTON_MASS_UMA;
     double product1_mass = (a_Product1 - z_Product1) * NEUTRON_MASS_UMA + z_Product1 * PROTON_MASS_UMA;
     double product2_mass = (a_Product2 - z_Product2) * NEUTRON_MASS_UMA + z_Product2 * PROTON_MASS_UMA;
     double massDefect = initialMass - (product1_mass + product2_mass);
 
-    double e = massDefect * CODATA_2018_UMA_EQUIV_MEV;
+    double e = massDefect * CODATA_2018_UMA_EQUIV_MEV - URANIUM_BINDING_ENERGY;
 
     fissionProducts.push_back(static_cast<double>(a_Product1));
     fissionProducts.push_back(static_cast<double>(z_Product1));
