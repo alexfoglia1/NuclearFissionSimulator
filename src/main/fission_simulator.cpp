@@ -132,22 +132,22 @@ int main(int argc, char** argv)
     {
         std::vector<double> fissionProducts = fGen.generateFissionValues(distMass, distAtom, massNumbers, atomNumbers);
 
-        int a1 = static_cast<int>(fissionProducts.at(0));
+        int a1 = static_cast<int>(fissionProducts.at(PRODUCT1_A));
         countsPerA[a1 - MIN_MASS_NUMBER] += 1;
 
-        int z1 = static_cast<int>(fissionProducts.at(1));
+        int z1 = static_cast<int>(fissionProducts.at(PRODUCT1_Z));
         countsPerZ[z1 - MIN_ATOMIC_NUMBER] += 1;
 
-        int a2 = static_cast<int>(fissionProducts.at(2));
+        int a2 = static_cast<int>(fissionProducts.at(PRODUCT2_A));
         countsPerA[a2 - MIN_MASS_NUMBER] += 1;
 
-        int z2 = static_cast<int>(fissionProducts.at(3));
+        int z2 = static_cast<int>(fissionProducts.at(PRODUCT2_Z));
         countsPerZ[z2 - MIN_ATOMIC_NUMBER] += 1;
 
-        double free = fissionProducts.at(4);
+        double free = fissionProducts.at(FREE);
         freeNeutrons.push_back(free);
 
-        double actualEnergy = fissionProducts.at(5);
+        double actualEnergy = fissionProducts.at(ENERGY);
         actualEnergies.push_back(actualEnergy);
 
         i++;
