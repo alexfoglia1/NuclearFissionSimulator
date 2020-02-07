@@ -1,7 +1,6 @@
 #include "yields.h"
-#include "periodictable.h"
 #include "fission_gen.h"
-
+#include "periodictable.h"
 #include <iostream>
 #include <chrono>
 
@@ -37,6 +36,7 @@ std::vector<double> convertIntToDoubleVector(std::vector<int> intVector)
 
 int main(int argc, char** argv)
 {
+    PeriodicTable pt = PeriodicTable::INSTANCE;
     uint32_t nSim = DEFAULT_NUMBER_OF_SIMULATIONS;
     bool saveFig = DEFAULT_SAVEFIG_OPTION;
 
@@ -124,6 +124,8 @@ int main(int argc, char** argv)
     uint32_t nSim_1000 = nSim / 1000;
     bool canAverage = nSim_1000 > 0;
 
+    double maxHalfTime = 0;
+
     std::cout << "Start " << nSim << " atomic fission simulations . . ." << std::endl;
     uint64_t t0 =
             std::chrono::duration_cast<std::chrono::microseconds>
@@ -150,6 +152,22 @@ int main(int argc, char** argv)
         double actualEnergy = fissionProducts.at(ENERGY);
         actualEnergies.push_back(actualEnergy);
 
+        element product1 = pt.table[z1];
+        element product2 = pt.table[z2];
+
+        uint16_t isotope1Index = pt.fromAtomicMassToIsotopeIndex(z1, a1);
+        uint16_t isotope2Index = pt.fromAtomicMassToIsotopeIndex(z2, a2);
+
+        double halvingTime1 = product1.half_lives[isotope1Index];
+        double halvingTime2 = product2.half_lives[isotope2Index];
+        if(halvingTime1 > maxHalfTime)
+        {
+            maxHalfTime = halvingTime1;
+        }
+        if(halvingTime2 > maxHalfTime)
+        {
+            maxHalfTime = halvingTime2;
+        }
         i++;
 
 		if (canAverage)
@@ -169,6 +187,7 @@ int main(int argc, char** argv)
         printf("Progress: %.2f %%\r", percentage);
         fflush(stdout);
     }
+    printf("\nMax Half time: %f", maxHalfTime);
     uint64_t tf =
             std::chrono::duration_cast<std::chrono::microseconds>
             (std::chrono::system_clock::now().time_since_epoch()).count();

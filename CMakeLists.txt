@@ -7,6 +7,7 @@ fission_simulator
 ${CMAKE_SOURCE_DIR}/src/models/yields.h
 ${CMAKE_SOURCE_DIR}/src/models/periodictable.h
 ${CMAKE_SOURCE_DIR}/src/models/fission_gen.h
+${CMAKE_SOURCE_DIR}/src/models/periodictable.cpp
 ${CMAKE_SOURCE_DIR}/src/models/fission_gen.cpp
 
 ${CMAKE_SOURCE_DIR}/utils/python_generator.h

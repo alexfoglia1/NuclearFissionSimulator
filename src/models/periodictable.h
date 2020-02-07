@@ -1,120 +1,32 @@
-#include<string>
+#include <string>
+#include <vector>
 
-std::string periodic_table[] =
+#define inf -1
+
+const uint16_t N_ELEMENTS = 118;
+const uint16_t MAX_ISOTOPES = 46;
+
+struct element
 {
-    "None",
-    "Hydrogen",
-    "Helium",
-    "Lithium",
-    "Beryllium",
-    "Boron",
-    "Carbon",
-    "Nitrogen",
-    "Oxygen",
-    "Fluorine",
-    "Neon",
-    "Sodium",
-    "Magnesium",
-    "Aluminium",
-    "Silicon",
-    "Phosphorus",
-    "Chlorine",
-    "Argon",
-    "Potassium",
-    "Calcium",
-    "Scandium",
-    "Titanium",
-    "Vanadium",
-    "Chromium",
-    "Manganese",
-    "Iron",
-    "Cobalt",
-    "Zinc",
-    "Gallium",
-    "Germanium",
-    "Arsenic",
-    "Selenium",
-    "Bromine",
-    "Krypton",
-    "Rubidium",
-    "Strontium",
-    "Yttrium",
-    "Zirconium",
-    "Niobium",
-    "Molybdenum",
-    "Technetium",
-    "Ruthenium",
-    "Rhodium",
-    "Palladium",
-    "Silver",
-    "Cadmium",
-    "Indium",
-    "Tin",
-    "Antimony",
-    "Iodine",
-    "Xenon",
-    "Cesium",
-    "Barium",
-    "Lanthanum",
-    "Cerium",
-    "Praseodymium",
-    "Neodymium",
-    "Promethium",
-    "Samarium",
-    "Europium",
-    "Gadolinium",
-    "Terbium",
-    "Dysprosium",
-    "Holmium",
-    "Erbium",
-    "Thulium",
-    "Ytterbium",
-    "Lutetium",
-    "Hafnium",
-    "Tantalum",
-    "Tungsten",
-    "Rhenium",
-    "Osmium",
-    "Iridium",
-    "Platinum",
-    "Gold",
-    "Mercury",
-    "Thallium",
-    "Lead",
-    "Bismuth",
-    "Polonium",
-    "Astatine",
-    "Radon",
-    "Francium",
-    "Radium",
-    "Actinium",
-    "Thorium",
-    "Protactinium",
-    "Uranium",
-    "Neptunium",
-    "Plutonium",
-    "Americium",
-    "Curium",
-    "Berkelium",
-    "Californium",
-    "Einsteinium",
-    "Fermium",
-    "Mendelevium",
-    "Nobelium",
-    "Lawrencium",
-    "Rutherfordium",
-    "Dubnium",
-    "Seaborgium",
-    "Bohrium",
-    "Hassium",
-    "Meitnerium",
-    "Darmstadtium",
-    "Roentgenium",
-    "Copernicium",
-    "Nihonium",
-    "Flerovium",
-    "Moscovium",
-    "Livermorium",
-    "Tennessine",
-    "Oganesson"
+    std::string name;
+    uint16_t z;
+    std::vector<uint16_t> isotopes;
+    std::vector<double> half_lives;
 };
+
+class PeriodicTable
+{
+
+private:
+    PeriodicTable();
+    void addIsotopesTo(element& x);
+
+public:
+    static PeriodicTable INSTANCE;
+    std::vector<element> table;
+
+    int16_t fromAtomicMassToIsotopeIndex(uint16_t z, uint16_t a);
+    bool isotopeExists(uint16_t z, uint16_t a);
+
+};
+

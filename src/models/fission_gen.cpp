@@ -1,4 +1,5 @@
 #include "fission_gen.h"
+#include "periodictable.h"
 
 std::vector<double> FissionGenerator::generateFissionValues(std::vector<double> aYields, std::vector<double> zYields, std::vector<int> aNumbers, std::vector<int> zNumbers)
 {
@@ -17,14 +18,23 @@ std::vector<double> FissionGenerator::generateFissionValues(std::vector<double> 
 	IntegerRandomGenerator massGenerator(massNormalized, aNumbers);
 	IntegerRandomGenerator atomGenerator(atomicNormalized, zNumbers);
 
-	int a_Product1 = massGenerator.generate();
-	int z_Product1 = atomGenerator.generate();
+    uint32_t a_Product1 = 0;
+    uint32_t z_Product1 = 0;
+    uint32_t a_Product2 = 0;
+    uint32_t z_Product2 = 0;
+    uint32_t freeNeutr  = 0;
 
-	int freeNeutr = mFreeGenerator->generate();
+    while(!PeriodicTable::INSTANCE.isotopeExists(z_Product1, a_Product1) ||
+          !PeriodicTable::INSTANCE.isotopeExists(z_Product2, a_Product2))
+    {
+        a_Product1 = static_cast<uint32_t>(massGenerator.generate());
+        z_Product1 = static_cast<uint32_t>(atomGenerator.generate());
 
-	int a_Product2 = (URANIUM_A + 1) - a_Product1 - freeNeutr;
-	int z_Product2 = URANIUM_Z - z_Product1;
+        freeNeutr = static_cast<uint32_t>(mFreeGenerator->generate());
 
+        a_Product2 = (URANIUM_A + 1) - a_Product1 - freeNeutr;
+        z_Product2 = URANIUM_Z - z_Product1;
+    }
     std::vector<double> fissionProducts;
 
     double initialMass = (URANIUM_N + 1) * NEUTRON_MASS_UMA + URANIUM_Z * PROTON_MASS_UMA;
